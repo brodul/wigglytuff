@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "wigglytuff"
+version = "0.1.0"
+description = ""
+authors = ["Andraz Brodnik <brodul@brodul.org>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+returns = "^0.19.0"
+Flask = "^2.1.2"
+
+[tool.poetry.dev-dependencies]
+mypy = "^0.950"
+black = "^22.3.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.nitpick]
+style = "https://raw.githubusercontent.com/wemake-services/wemake-python-styleguide/master/styles/mypy.toml"

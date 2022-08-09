@@ -1,14 +1,14 @@
-FROM python:3.10
+FROM nixos/nix
 
-WORKDIR /usr/src/app
-RUN pip install poetry
+WORKDIR /app
+COPY docker/entrypoint.sh docker/entrypoint.sh
+ENTRYPOINT [ "docker/entrypoint.sh" ]
 
-RUN apt-get clean && apt-get -y update && apt-get install -y ffmpeg
-
-COPY pyproject.toml poetry.lock ./
-RUN poetry install
+COPY nix/ ./nix/
+COPY pyproject.toml poetry.lock shell.nix ./
+RUN nix-shell --argstr buildType prod --run "poetry install -n --no-dev"
 
 COPY fly.toml ./
 COPY src ./wigglytuff/
 
-CMD [ "poetry", "run", "gunicorn", "wigglytuff.wsgi:wsgi_entrypoint" ]
+CMD [ "gunicorn", "wigglytuff.wsgi:wsgi_entrypoint" ]

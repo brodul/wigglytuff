@@ -1,12 +1,14 @@
+"""Web app module."""
+import subprocess  # nosec
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
-import subprocess
 
-from flask import Flask, redirect, url_for, render_template, request
+from flask import Flask, redirect, render_template, request, url_for
 
 
 # WSGI entry point
 def create_app():
+    """Configure Flask app and return it."""
 
     app = Flask(__name__)
     executor = ThreadPoolExecutor(max_workers=2)
@@ -34,10 +36,12 @@ def create_app():
 
 
 def home_view(request, app, futures_store: set):
+    """Render all features in the feature store."""
     return render_template("home.html", futures=futures_store)
 
 
 def get_yt_video(request, app, executor, futures_store: set):
+    """TODO."""
     # TODO sec risk validate form
     dl_future = executor.submit(
         subprocess.run,
@@ -46,13 +50,14 @@ def get_yt_video(request, app, executor, futures_store: set):
         capture_output=True,
     )
     futures_store.add(dl_future)
-    mv_future = executor.submit(move_mp3, dl_future, "TODO")
+    _ = executor.submit(move_mp3, dl_future, "TODO")
 
     return redirect(url_for("home"))
 
 
 # TODO
 def move_mp3(blocking_future, dest_path):
+    """TODO."""
     blocking_future.result()
 
 

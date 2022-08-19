@@ -21,7 +21,7 @@ install:
 # Run development server
 .PHONY: run
 run: .installed
-	@ENABLE_ENDPOINT_VALIDATION=1 poetry run pserve etc/development.ini --reload
+	@FLASK_APP="wigglytuff.app" FLASK_ENV=development poetry run flask run
 
 # Testing and linting targets
 all = false

@@ -1,5 +1,5 @@
 minimum_pre_commit_version: 1.17.0
-default_stages: [commit,push]
+default_stages: [commit]
 repos:
 
 -   repo: local

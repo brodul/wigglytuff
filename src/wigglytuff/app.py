@@ -1,6 +1,6 @@
 """Web app module."""
 import subprocess  # nosec
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import Future, ThreadPoolExecutor
 from functools import partial
 
 from flask import Flask, redirect, render_template, request, url_for
@@ -13,7 +13,7 @@ def create_app():
     app = Flask(__name__)
     executor = ThreadPoolExecutor(max_workers=2)
     # TODO: clean up after SIGINT SIGTERM
-    futures_store = set()
+    futures_store: set[Future] = set()
 
     app.add_url_rule(
         "/",
@@ -35,6 +35,7 @@ def create_app():
     return app
 
 
+# baba
 def home_view(request, app, futures_store: set):
     """Render all features in the feature store."""
     return render_template("home.html", futures=futures_store)

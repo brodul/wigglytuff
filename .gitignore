@@ -166,3 +166,9 @@ cython_debug/
 *.ogg
 *.part
 *.webm
+
+.installed
+cov.xml
+.vscode
+typecov/*
+htmltypecov/*

@@ -1,0 +1,71 @@
+minimum_pre_commit_version: 1.17.0
+default_stages: [commit,push]
+repos:
+
+-   repo: local
+    hooks:
+
+        -   id: isort
+            name: isort
+            description: A Python utility that sorts imports alphabetically
+            entry: poetry run isort
+            language: system
+            types: [python]
+
+        -   id: flake8
+            name: Flake8
+            description: Python Style Guide Enforcement
+            entry: poetry run flake8
+            language: system
+            types: [python]
+
+        -   id: black
+            name: Black
+            description: Uncompromising Python code formatter
+            entry: poetry run black
+            language: system
+            types: [python]
+
+        -   id: trailing-whitespace
+            name: Trailing Whitespace
+            entry: poetry run trailing-whitespace-fixer
+            language: system
+            types: [non-executable, file, text]
+            exclude_types: [svg]
+
+        -   id: end-of-file-fixer
+            name: End of Files
+            description: Ensures that a file is either empty, or ends with one newline.
+            entry: poetry run end-of-file-fixer
+            language: system
+            types: [non-executable, file, text]
+            exclude_types: [svg]
+
+        -   id: check-merge-conflict
+            name: Merge Conflicts
+            description: Check for files that contain merge conflict strings.
+            entry: poetry run check-merge-conflict
+            language: system
+            types: [non-executable, file, text]
+            exclude_types: [svg]
+
+        -   id: codespell
+            name: Spelling
+            description: Checks for common misspellings in text files.
+            entry: poetry run codespell
+            language: system
+            types: [non-executable, file, text]
+
+        -   id: debug-statements
+            name: Debug Statements
+            description: Checks that debug statements (pdb, ipdb, pudb) are not imported on commit.
+            entry: poetry run debug-statement-hook
+            language: system
+            types: [python]
+
+        -   id: bandit
+            name: Bandit
+            description: Check for common security issues
+            entry: poetry run bandit -ii --silent --exclude *tests*
+            language: system
+            types: [python]

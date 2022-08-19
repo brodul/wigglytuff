@@ -9,6 +9,6 @@ COPY pyproject.toml poetry.lock shell.nix ./
 RUN nix-shell --argstr buildType prod --run "poetry install -n --no-dev"
 
 COPY fly.toml ./
-COPY src ./wigglytuff/
+COPY src/wigglytuff ./wigglytuff/
 
 CMD [ "gunicorn", "wigglytuff.wsgi:wsgi_entrypoint" ]
